@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kysely</title>
+    <link rel="shortcut icon" href="/gallery/Logo.png" type="image/x-icon">
+    <meta name="description" content="Laatikon palautekysely">
+    <meta property="og:image" content="/galery/Logo.png">
+</head>
+<style>
+    #form {
+        max-width: 100%;
+        max-height: 90vh;
+        width: 500px;
+        background-color: rgb(100, 80, 49);
+        height: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-top: 20px;
+        box-shadow: 7px 7px 25px;
+        margin-top: 10vh;
+    }
+    h1 {
+        color: white;
+        font-size: 40px;
+        font-family: monospace;
+        text-decoration: underline;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .q {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+    #send {
+        background-color: #0000;
+        color: white;
+        font-size: 20px;
+        font-family: monospace;
+        border: none;
+        margin-right: 20px;
+        float: right;
+        margin-top: 20px;
+    }
+    #send:hover {
+        color: blue;
+        animation: send 2s infinite;
+        text-decoration: underline;
+    }
+    @keyframes send {
+        0% {margin-right: 20px;}
+        40% {margin-right: 20px;}
+        50% {margin-right: 15px;}
+        60% {margin-right: 20px;}
+        70% {margin-right: 15px;}
+        80% {margin-right: 20px;}
+        100% {margin-right: 20px;}
+    }
+</style>
+<body>
+    <script src="/body/body.js"></script>
+    <form action="" method="POST" id="form">
+        <hr style="color: #0000;">
+        <h1 id="o">Kysely</h1>
+        <input placeholder="Nimi" id="nimi" class="q">
+        <textarea placeholder="Miten voisimme parantaa?" id="viesti" class="q"></textarea>
+        <textarea placeholder="Mitä mieltä olet palvelimesta?" id="mp" class="q"></textarea>
+        <button id="send">Lähetä&#128237;</button>
+    </form>
+</body>
+</html>
+<script>
+    document.getElementById("send").onclick = function () {
+        const Nimi = document.getElementById("nimi").value;
+        const Viesti = document.getElementById("viesti").value;
+        const mp = document.getElementById("mp").value;
+
+        const request = new XMLHttpRequest();
+        request.open("POST", "https://discordapp.com/api/webhooks/1021477947619692584/vP12Y3v8J9lYuaVgr96QulY2N0uyffQpa8u0wrMUjUjxl6gGx7WvmSnQC6ds8Y0sONfI");
+        request.setRequestHeader('Content-type', 'application/json');
+
+        const params = {
+            "embeds": [ {
+                "author": {
+                    "name": Nimi,
+                },
+                "title": "**Palautekysely**",
+                "description": mp,
+                "color": "16741120",
+                "fields": [
+                    {
+                        "name": "Parannussideat:",
+                        "value": "*"+Viesti+"*"
+                    }
+                ]
+                }
+            ]
+            }
+
+        request.send(JSON.stringify(params));
+        alert("Lomake lähetetty🎉 Palataan aloitussivulle");
+        document.location.href="/index.html";
+    }
+</script>
